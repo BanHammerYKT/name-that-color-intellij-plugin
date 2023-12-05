@@ -1,1 +1,8 @@
-include 'namethatcolor'
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'namethatcolor'

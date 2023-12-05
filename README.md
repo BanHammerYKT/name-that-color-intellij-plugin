@@ -4,7 +4,7 @@
 
 When I get a new color to set in my Android app, I never know how to call it. 
 
-I used the website [Name That Color](http://chir.ag/projects/ntc/) for years, and I wanted to have it integrated inside Android Studio, so I ported its JS library to Kotlin and built this IntelliJ plugin around it.
+I used the website [Name That Color](https://chir.ag/projects/ntc/) for years, and I wanted to have it integrated inside Android Studio, so I ported its JS library to Kotlin and built this IntelliJ plugin around it.
 
 Besides its long [list of colors](https://github.com/galex/name-that-color-intellij-plugin/blob/master/namethatcolor/src/main/kotlin/il/co/galex/namethatcolor/core/util/Colors.kt), users requested to add the material colors names, so we can now name our colors as [material colors](https://github.com/galex/name-that-color-intellij-plugin/blob/master/namethatcolor/src/main/kotlin/il/co/galex/namethatcolor/core/util/MaterialColors.kt) as well. 
 
@@ -86,4 +86,4 @@ I'd like to thank [aednlaxer](https://github.com/aednlaxer) for submitting bugs 
 ## License 
 
 This plugin is released under the: Creative Commons License:
-Attribution 2.5 http://creativecommons.org/licenses/by/2.5/
+Attribution 2.5 https://creativecommons.org/licenses/by/2.5/

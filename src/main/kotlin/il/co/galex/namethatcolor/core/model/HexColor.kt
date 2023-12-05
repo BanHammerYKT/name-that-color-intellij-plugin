@@ -4,6 +4,7 @@ import il.co.galex.namethatcolor.core.util.hsl
 import il.co.galex.namethatcolor.core.util.rgb
 import il.co.galex.namethatcolor.core.util.roundTo2Decimal
 import il.co.galex.namethatcolor.core.util.roundTo2HexString
+import java.util.*
 
 class HexColor(val input: String) {
 
@@ -13,7 +14,7 @@ class HexColor(val input: String) {
     val value: String
 
     init {
-        var cup = input.toUpperCase()
+        var cup = input.uppercase(Locale.getDefault())
 
         if (cup.isEmpty()) {
             throw IllegalArgumentException("The input cannot be an empty string")
@@ -29,7 +30,7 @@ class HexColor(val input: String) {
             val alphaValueText = cup.substringBefore("%").trim()
             if (alphaValueText.isNotEmpty()) {
                 val alphaValue = alphaValueText.toInt()
-                alpha = (alphaValue / 100.0 * 255).roundTo2HexString().toUpperCase()
+                alpha = (alphaValue / 100.0 * 255).roundTo2HexString().uppercase(Locale.getDefault())
                 percentAlpha = alphaValue
             }
             cup = cup.substringAfter("%")
