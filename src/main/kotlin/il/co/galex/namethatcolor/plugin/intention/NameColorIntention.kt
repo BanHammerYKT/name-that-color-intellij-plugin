@@ -1,9 +1,11 @@
 package il.co.galex.namethatcolor.plugin.intention
 
+import com.esotericsoftware.kryo.kryo5.minlog.Log
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.ASTFactory
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.XmlElementFactory
@@ -12,8 +14,13 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlText
 import il.co.galex.namethatcolor.core.model.Color
 import il.co.galex.namethatcolor.core.model.HexColor
+import il.co.galex.namethatcolor.core.util.toKtName
 import il.co.galex.namethatcolor.core.util.toXmlName
+import il.co.galex.namethatcolor.plugin.util.ktOutput
 import il.co.galex.namethatcolor.plugin.util.xmlOutput
+import org.jetbrains.kotlin.psi.KtFile
+import org.jetbrains.kotlin.psi.KtPsiFactory
+import org.jetbrains.kotlin.psi.psiUtil.elementsInRange
 
 @Suppress("DialogTitleCapitalization")
 class NameColorIntention(private val text: String, private val hexColor: HexColor, private val find: (color: HexColor) -> Pair<HexColor, Color>) : IntentionAction {
@@ -24,6 +31,21 @@ class NameColorIntention(private val text: String, private val hexColor: HexColo
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean = true
 
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
+        if (file is KtFile) {
+            editor?.caretModel?.offset?.let { offset ->
+                file.elementsInRange(TextRange(offset - 10, offset + 10)).forEach { oldElement ->
+                    if (oldElement.text?.contains(hexColor.input) == true) {
+                        Log.info("${oldElement.toString()} ${oldElement.javaClass}")
+                        val (hexColor, color) = find(HexColor(hexColor.input))
+                        val name = color.name.toKtName(hexColor.percentAlpha)
+                        val insert = ktOutput(name, hexColor.toString())
+                        val newElement: PsiElement = KtPsiFactory.contextual(oldElement).createProperty(insert)
+                        oldElement.replace(newElement)
+                        return@forEach
+                    }
+                }
+            }
+        }
 
         if (file is XmlFile) {
             file.rootTag?.let { rootTag ->

@@ -3,6 +3,8 @@ package il.co.galex.namethatcolor.core.util
 import il.co.galex.namethatcolor.core.model.Hsl
 import il.co.galex.namethatcolor.core.model.Rgb
 import il.co.galex.namethatcolor.plugin.util.ALPHA_SEPARATOR
+import il.co.galex.namethatcolor.plugin.util.ALPHA_SEPARATOR_KT
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.decapitalizeSmart
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -58,6 +60,15 @@ fun String.toXmlName(percentAlpha: Int?): String {
     var name = this.lowercase(Locale.getDefault()).replace(" ", "_")
     if (percentAlpha != null) {
         name += "$ALPHA_SEPARATOR$percentAlpha"
+    }
+    return name
+}
+
+
+fun String.toKtName(percentAlpha: Int?): String {
+    var name = this.replace(" ", "").decapitalizeSmart(true)
+    if (percentAlpha != null) {
+        name += "$ALPHA_SEPARATOR_KT$percentAlpha"
     }
     return name
 }

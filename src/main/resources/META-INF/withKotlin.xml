@@ -1,5 +1,5 @@
 <idea-plugin>
     <extensions defaultExtensionNs="com.intellij">
-        <annotator language="kotlin" implementationClass="com.example.MyKotlinAnnotator"/>
+        <annotator language="kotlin" implementationClass="il.co.galex.namethatcolor.plugin.annotator.ColorAnnotator"/>
     </extensions>
 </idea-plugin>

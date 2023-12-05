@@ -13,6 +13,7 @@ intellij {
     version.set("2023.2")
     pluginName.set("NameThatColor")
     type.set("IC")
+    plugins.set(listOf("org.jetbrains.kotlin"))
 }
 
 tasks {
