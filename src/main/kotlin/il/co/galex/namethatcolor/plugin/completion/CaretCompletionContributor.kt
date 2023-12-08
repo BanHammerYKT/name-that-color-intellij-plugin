@@ -4,10 +4,7 @@ import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.completion.CompletionUtilCore.DUMMY_IDENTIFIER_TRIMMED
 import com.intellij.util.ProcessingContext
 import il.co.galex.namethatcolor.core.manager.ColorNameFinder
-import il.co.galex.namethatcolor.plugin.util.NAME_THAT_COLOR
-import il.co.galex.namethatcolor.plugin.util.NAME_THAT_MATERIAL_COLOR
-import il.co.galex.namethatcolor.plugin.util.PLACE
-import il.co.galex.namethatcolor.plugin.util.addElement
+import il.co.galex.namethatcolor.plugin.util.*
 
 /**
  * Completes the color on the caret after the color was written
@@ -22,8 +19,8 @@ class CaretCompletionContributor : CompletionContributor() {
 
                 val text = parameters.position.text.replace(DUMMY_IDENTIFIER_TRIMMED, "")
 
-                resultSet.addElement(NAME_THAT_COLOR, text, ColorNameFinder::findColor)
-                resultSet.addElement(NAME_THAT_MATERIAL_COLOR, text, ColorNameFinder::findMaterialColor)
+                resultSet.addElement(NAME_THAT_COLOR_XML, text, ColorNameFinder::findColor, EnumColorOutput.XML)
+                resultSet.addElement(NAME_THAT_MATERIAL_COLOR_XML, text, ColorNameFinder::findMaterialColor, EnumColorOutput.XML)
             }
         })
     }

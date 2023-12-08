@@ -4,10 +4,7 @@ import com.intellij.codeInsight.completion.*
 import com.intellij.openapi.application.ex.ClipboardUtil
 import com.intellij.util.ProcessingContext
 import il.co.galex.namethatcolor.core.manager.ColorNameFinder
-import il.co.galex.namethatcolor.plugin.util.NAME_THAT_COLOR
-import il.co.galex.namethatcolor.plugin.util.NAME_THAT_MATERIAL_COLOR
-import il.co.galex.namethatcolor.plugin.util.PLACE
-import il.co.galex.namethatcolor.plugin.util.addElement
+import il.co.galex.namethatcolor.plugin.util.*
 
 /**
  *  Completes the color from the clipboard
@@ -20,8 +17,8 @@ class ClipboardCompletionContributor : CompletionContributor() {
             override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, resultSet: CompletionResultSet) {
 
                 ClipboardUtil.getTextInClipboard()?.let {
-                    resultSet.addElement(NAME_THAT_COLOR, it, ColorNameFinder::findColor)
-                    resultSet.addElement(NAME_THAT_MATERIAL_COLOR, it, ColorNameFinder::findMaterialColor)
+                    resultSet.addElement(NAME_THAT_COLOR_XML, it, ColorNameFinder::findColor, EnumColorOutput.XML)
+                    resultSet.addElement(NAME_THAT_MATERIAL_COLOR_XML, it, ColorNameFinder::findMaterialColor, EnumColorOutput.XML)
                 }
             }
         })

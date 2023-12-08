@@ -7,12 +7,12 @@ import il.co.galex.namethatcolor.core.model.Color
 import il.co.galex.namethatcolor.core.model.HexColor
 import il.co.galex.namethatcolor.core.util.toXmlName
 
-inline fun CompletionResultSet.addElement(message: String, clipboard: String, find: (color: HexColor) -> Pair<HexColor, Color>) {
+inline fun CompletionResultSet.addElement(message: String, clipboard: String, find: (color: HexColor) -> Pair<HexColor, Color>, colorOutput: EnumColorOutput) {
 
     try {
         val (hexColor, color) = find(HexColor(clipboard))
         val name = color.name.toXmlName(hexColor.percentAlpha)
-        val insert = xmlOutput(name, hexColor.toString())
+        val insert = colorOutput(name, hexColor.toString(), colorOutput)
         addElement(LookupElementBuilder.create(insert).withPresentableText(message))
 
     } catch (e: ColorNotFoundException) {
