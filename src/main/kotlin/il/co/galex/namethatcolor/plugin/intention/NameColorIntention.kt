@@ -16,14 +16,18 @@ import il.co.galex.namethatcolor.core.model.Color
 import il.co.galex.namethatcolor.core.model.HexColor
 import il.co.galex.namethatcolor.core.util.toKtName
 import il.co.galex.namethatcolor.core.util.toXmlName
-import il.co.galex.namethatcolor.plugin.util.ktOutput
-import il.co.galex.namethatcolor.plugin.util.xmlOutput
+import il.co.galex.namethatcolor.plugin.util.EnumColorOutput
+import il.co.galex.namethatcolor.plugin.util.colorOutput
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtPsiFactory
 import org.jetbrains.kotlin.psi.psiUtil.elementsInRange
 
 @Suppress("DialogTitleCapitalization")
-class NameColorIntention(private val text: String, private val hexColor: HexColor, private val find: (color: HexColor) -> Pair<HexColor, Color>) : IntentionAction {
+class NameColorIntention(
+        private val text: String,
+        private val hexColor: HexColor,
+        private val find: (color: HexColor) -> Pair<HexColor, Color>,
+        private val colorOutput: EnumColorOutput) : IntentionAction {
 
     override fun getFamilyName(): String = "Name That Color"
     override fun getText(): String = text
@@ -38,7 +42,7 @@ class NameColorIntention(private val text: String, private val hexColor: HexColo
                         Log.info("${oldElement.toString()} ${oldElement.javaClass}")
                         val (hexColor, color) = find(HexColor(hexColor.input))
                         val name = color.name.toKtName(hexColor.percentAlpha)
-                        val insert = ktOutput(name, hexColor.toString())
+                        val insert = colorOutput(name, hexColor.toString(), colorOutput)
                         val newElement: PsiElement = KtPsiFactory.contextual(oldElement).createProperty(insert)
                         oldElement.replace(newElement)
                         return@forEach
@@ -55,7 +59,7 @@ class NameColorIntention(private val text: String, private val hexColor: HexColo
 
                         val (hexColor, color) = find(HexColor(hexColor.input))
                         val name = color.name.toXmlName(hexColor.percentAlpha)
-                        val insert = xmlOutput(name, hexColor.toString())
+                        val insert = colorOutput(name, hexColor.toString(), colorOutput)
 
                         var newElement: PsiElement = XmlElementFactory.getInstance(project).createTagFromText(insert)
                         val split = oldElement.text.split(hexColor.input)

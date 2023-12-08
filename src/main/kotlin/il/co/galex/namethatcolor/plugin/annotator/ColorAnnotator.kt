@@ -36,13 +36,13 @@ class ColorAnnotator : Annotator {
 
                 // color list from name that color
                 holder.newAnnotation(HighlightSeverity.ERROR, COLOR_ANNOTATION_MESSAGE_KT)
-                    .newFix(NameColorIntention(NAME_THAT_COLOR, color, ColorNameFinder::findColor))
+                    .newFix(NameColorIntention(NAME_THAT_COLOR, color, ColorNameFinder::findColor, EnumColorOutput.KT))
                     .registerFix()
                     .create()
 
                 // material color palette
                 holder.newAnnotation(HighlightSeverity.ERROR, MATERIAL_COLOR_ANNOTATION_MESSAGE_KT)
-                    .newFix(NameColorIntention(NAME_THAT_MATERIAL_COLOR, color, ColorNameFinder::findMaterialColor))
+                    .newFix(NameColorIntention(NAME_THAT_MATERIAL_COLOR, color, ColorNameFinder::findMaterialColor, EnumColorOutput.KT))
                     .registerFix()
                     .create()
             }
@@ -57,13 +57,13 @@ class ColorAnnotator : Annotator {
 
                     // color list from name that color
                     holder.newAnnotation(HighlightSeverity.ERROR, COLOR_ANNOTATION_MESSAGE)
-                            .newFix(NameColorIntention(NAME_THAT_COLOR, color, ColorNameFinder::findColor))
+                            .newFix(NameColorIntention(NAME_THAT_COLOR, color, ColorNameFinder::findColor, EnumColorOutput.XML))
                             .registerFix()
                             .create()
 
                     // material color palette
                     holder.newAnnotation(HighlightSeverity.ERROR, MATERIAL_COLOR_ANNOTATION_MESSAGE)
-                            .newFix(NameColorIntention(NAME_THAT_MATERIAL_COLOR, color, ColorNameFinder::findMaterialColor))
+                            .newFix(NameColorIntention(NAME_THAT_MATERIAL_COLOR, color, ColorNameFinder::findMaterialColor, EnumColorOutput.XML))
                             .registerFix()
                             .create()
                 }
