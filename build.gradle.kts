@@ -6,13 +6,13 @@ plugins {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 intellij {
-    version.set("2023.2")
+    version.set("2023.2.1.18")
     pluginName.set("NameThatColor")
-    type.set("IC")
+    type.set("AI")
+    plugins.set(listOf("android"))
 }
 
 tasks {
@@ -26,9 +26,9 @@ tasks {
     }
 
     patchPluginXml {
-        version.set("1.7.2")
+        version.set("1.7.3")
         sinceBuild.set("201")
-        untilBuild.set("232.*")
+        untilBuild.set("233.*")
     }
 
     signPlugin {
