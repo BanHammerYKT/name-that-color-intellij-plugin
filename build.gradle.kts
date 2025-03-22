@@ -1,34 +1,43 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
-    id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.intellij") version "1.15.0"
+    id("org.jetbrains.kotlin.jvm") version "2.1.0"
+    id("org.jetbrains.intellij.platform") version "2.3.0"
 }
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-intellij {
-    version.set("2023.2.1.18")
-    pluginName.set("NameThatColor")
-    type.set("AI")
-    plugins.set(listOf("android"))
+dependencies {
+    intellijPlatform {
+        androidStudio("2024.3.2.9")
+        bundledPlugin("org.jetbrains.android")
+    }
+}
+
+kotlin {
+    compilerOptions {
+        optIn.add("kotlin.RequiresOptIn")
+        apiVersion.set(KotlinVersion.KOTLIN_2_1)
+        jvmTarget.set(JvmTarget.JVM_21)
+    }
 }
 
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
-    }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
     }
 
     patchPluginXml {
-        version.set("1.7.6")
-        sinceBuild.set("201")
-        untilBuild.set("243.*")
+        sinceBuild.set("243")
+        untilBuild.set("251.*")
     }
 
     signPlugin {
