@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        androidStudio("2024.3.2.9")
+        androidStudio("2025.2.2.1")
         bundledPlugin("org.jetbrains.android")
     }
 }
@@ -37,7 +37,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("243")
-        untilBuild.set("252.*")
+        untilBuild.set("253.*")
     }
 
     signPlugin {
